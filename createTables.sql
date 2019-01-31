@@ -29,6 +29,7 @@ CREATE TABLE UserInfo(
 CREATE TABLE BikeInfo (
     /*this table contains all unique bike identifiers*/
     bikeID INT PRIMARY KEY AUTO_INCREMENT,
+    bikeName VARCHAR(15) NOT NULL,
     inEco BOOLEAN NOT NULL
 
 )ENGINE=INNODB;
@@ -158,7 +159,8 @@ CREATE TABLE CurrentBookings (
     bikeID INT NOT NULL,
     stationID INT NOT NULL,
     userID INT NOT NULL,
-    timeOfBooking DATE NOT NULL,
+    timeOfBooking TIME NOT NULL,
+    timeRemaining TIME NOT NULL, /* countdown  */
     FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID),
     FOREIGN KEY (stationID) REFERENCES StationInfo (stationID),
     FOREIGN KEY (userID) REFERENCES UserInfo (userID)
