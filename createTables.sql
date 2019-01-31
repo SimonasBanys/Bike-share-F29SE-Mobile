@@ -1,8 +1,22 @@
-DROP TABLE test;
+/*
+DROP TABLE OldBookings;
+DROP TABLE CompletedMaintenance;
+DROP TABLE ScheduledMaintenance;
+DROP TABLE SolvedUserReports;
+DROP TABLE CurrentUserReports;
+DROP TABLE FinishedRides;
+DROP TABLE UsersUsingBikes;
+DROP TABLE BikesAtStations;
+DROP TABLE StationStatus;
+DROP TABLE StationInfo;
+DROP TABLE StaffInfo;
+DROP TABLE BikeInfo;
+DROP TABLE UserInfo;
+*/
 
-CREATE TABLE UserInfo
-    --this table contains unique user login information
-    userID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
+CREATE TABLE UserInfo(
+    /*this table contains unique user login information*/
+    userID INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL,
     firstName VARCHAR(50) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
@@ -12,15 +26,15 @@ CREATE TABLE UserInfo
 )ENGINE=INNODB;
 
 CREATE TABLE BikeInfo (
-    --this table contains all unique bike identifiers
-    bikeID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
+    /*this table contains all unique bike identifiers*/
+    bikeID INT PRIMARY KEY AUTO_INCREMENT,
     inEco BOOLEAN NOT NULL
 
 )ENGINE=INNODB;
 
 CREATE TABLE StaffInfo (
-  --this table contains unique management login information
-    staffID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
+  /*this table contains unique management login information*/
+    staffID INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL,
     firstName VARCHAR(50) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
@@ -31,23 +45,22 @@ CREATE TABLE StaffInfo (
 )ENGINE=INNODB;
 
 CREATE TABLE StationInfo (
-    --this table contains all the stations. used for mapping
-    stationID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
+    /*this table contains all the stations. used for mapping*/
+    stationID INT PRIMARY KEY AUTO_INCREMENT,
     stationName VARCHAR(50) NOT NULL,
-    --geometery type
-    --fix
+    /*geometery type fix*/
     latitude INT,
     longitude INT,
     addressLine1 VARCHAR(50) NOT NULL,
-    addressLine2 VARCHAR(50), --can be NULL
-    --fix
+    addressLine2 VARCHAR(50),
+    /*fix*/
     postcode VARCHAR(7) NOT NULL
-    --example for Edinburgh is lat 55.950161, long -3.213177
+    /*example for Edinburgh is lat 55.950161, long -3.213177*/
 )ENGINE=INNODB;
 
 CREATE TABLE StationStatus (
-  --one to one relationship with stationInfo. Therefore primary key is forgeign key
-    stationID INT PRIMARY KEY, -- in reality this would be generated number not auto inc.
+  /*one to one relationship with stationInfo. Therefore primary key is forgeign key*/
+    stationID INT PRIMARY KEY,
     maxParkingSpaces INT NOT NULL,
     availableParkingSpaces INT NOT NULL,
     FOREIGN KEY (stationID) REFERENCES StationInfo (stationID)
@@ -57,23 +70,22 @@ CREATE TABLE BikesAtStations (
     bikeID INT NOT NULL,
     stationID INT NOT NULL,
     PRIMARY KEY (bikeID, stationID),
-    --forgeign keys : bike ID @ station ID
     FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID),
     FOREIGN KEY (stationID) REFERENCES StationInfo (stationID)
 )ENGINE=INNODB;
 
 CREATE TABLE UsersUsingBikes (
-    --current bikes that are being used by users
+    /*current bikes that are being used by users*/
     bikeID INT NOT NULL,
     userID INT NOT NULL,
     PRIMARY KEY (bikeID, userID),
-    --forgeign keys : bike ID @ station ID
     FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID),
     FOREIGN KEY (userID) REFERENCES UserInfo (userID)
+)ENGINE=INNODB;
 
 CREATE TABLE FinishedRides (
-    --old logs of all the finished rides
-    rideID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
+    /*old logs of all the finished rides*/
+    rideID INT PRIMARY KEY AUTO_INCREMENT,
     userID INT NOT NULL,
     startStationID INT NOT NULL,
     endStationID INT NOT NULL,
@@ -90,11 +102,11 @@ CREATE TABLE CurrentUserReports(
     userID INT NOT NULL,
     bikeID INT NOT NULL,
     problem ENUM('not sure', 'yet'),
-    --fix
+    /* fix */
     longitude INT NOT NULL,
     latitude INT NOT NULL,
     FOREIGN KEY (userID) REFERENCES UserInfo (userID),
-    FOREIGN KEY (bikeID) REFERENCES BikeInfor (bikeID),
+    FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID)
 )ENGINE=INNODB;
 
 CREATE TABLE SolvedUserReports(
@@ -102,7 +114,7 @@ CREATE TABLE SolvedUserReports(
     userID INT NOT NULL,
     bikeID INT NOT NULL,
     problem ENUM('not sure', 'yet'),
-    --fix
+    /* fix */
     longitude INT NOT NULL,
     latitude INT NOT NULL,
     staffID INT NOT NULL,
@@ -111,26 +123,25 @@ CREATE TABLE SolvedUserReports(
     FOREIGN KEY (userID) REFERENCES UserInfo (userID),
     FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID),
     FOREIGN KEY (staffID) REFERENCES StaffInfo (staffID)
-)ENGINE=INNODB
+)ENGINE=INNODB;
 
 CREATE TABLE ScheduledMaintenance (
-    --staff scheduled maintenance
-    maintenanceID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
+    /* staff scheduled maintenance */
+    maintenanceID INT PRIMARY KEY AUTO_INCREMENT,
     bikeID INT NOT NULL,
-    staffID INT NOT NULL, --who scheduled the maintenance
+    staffID INT NOT NULL,
     reportID INT NOT NULL,
     dateScheduled DATE NOT NULL,
     estimatedLengthOfRepair TIME NOT NULL,
-    FOREIGN KEY (userID) REFERENCES UserInfo (userID),
     FOREIGN KEY (staffID) REFERENCES StaffInfo (staffID),
     FOREIGN KEY (reportID) REFERENCES SolvedUserReports (reportID)
 )ENGINE=INNODB;
 
 CREATE TABLE CompletedMaintenance (
-    --old logs of all completed maintenance
+    /*old logs of all completed maintenance*/
     maintenanceID INT PRIMARY KEY,
     bikeID INT NOT NULL,
-    staffID INT NOT NULL, --who fixed the bike
+    staffID INT NOT NULL,
     dateScheduled DATE NOT NULL,
     estimatedLengthOfRepair TIME NOT NULL,
     dateOfCompletion DATE NOT NULL,
@@ -141,8 +152,8 @@ CREATE TABLE CompletedMaintenance (
 )ENGINE=INNODB;
 
 CREATE TABLE CurrentBookings (
-    --current bookings that have not been completed yet
-    bookingID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
+    /*current bookings that have not been completed yet*/
+    bookingID INT PRIMARY KEY AUTO_INCREMENT,
     bikeID INT NOT NULL,
     stationID INT NOT NULL,
     userID INT NOT NULL,
@@ -153,8 +164,8 @@ CREATE TABLE CurrentBookings (
 )ENGINE=INNODB;
 
 CREATE TABLE OldBookings (
-    --old logs for bookings
-    bookingID INT PRIMARY KEY, -- in reality this would be generated number not auto inc.
+    /*old logs for bookings*/
+    bookingID INT PRIMARY KEY,
     bikeID INT NOT NULL,
     stationID INT NOT NULL,
     userID INT NOT NULL,
