@@ -1,5 +1,6 @@
-/*
+
 DROP TABLE OldBookings;
+DROP TABLE CurrentBookings;
 DROP TABLE CompletedMaintenance;
 DROP TABLE ScheduledMaintenance;
 DROP TABLE SolvedUserReports;
@@ -12,7 +13,7 @@ DROP TABLE StationInfo;
 DROP TABLE StaffInfo;
 DROP TABLE BikeInfo;
 DROP TABLE UserInfo;
-*/
+
 
 CREATE TABLE UserInfo(
     /*this table contains unique user login information*/
