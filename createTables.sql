@@ -1,131 +1,173 @@
 DROP TABLE test;
 
-CREATE TABLE userInfo
+CREATE TABLE UserInfo
     --this table contains unique user login information
     userID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
-    username,
-    firstName,
-    lastName,
-    passwordHash,
-    salt,
-    email,
-    DoB
+    username VARCHAR(50) NOT NULL,
+    firstName VARCHAR(50) NOT NULL,
+    lastName VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    email VARCHAR(320) NOT NULL,
+    DoB DATE NOT NULL
 )ENGINE=INNODB;
 
-CREATE TABLE bikeInfo (
+CREATE TABLE BikeInfo (
     --this table contains all unique bike identifiers
     bikeID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
-    inEco bool
+    inEco BOOLEAN NOT NULL
 
 )ENGINE=INNODB;
 
-CREATE TABLE managementInfo (
+CREATE TABLE StaffInfo (
   --this table contains unique management login information
     staffID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
-    username,
-    firstName,
-    lastName,
-    passwordHash,
-    salt,
-    email,
-    DoB,
-    jobTitle enum,
-    workingHours
+    username VARCHAR(50) NOT NULL,
+    firstName VARCHAR(50) NOT NULL,
+    lastName VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    email VARCHAR(320) NOT NULL,
+    DoB DATE NOT NULL,
+    jobTitle ENUM('dev', 'maintenance', 'manager') NOT NULL
 )ENGINE=INNODB;
 
-CREATE TABLE stationInfo (
+CREATE TABLE StationInfo (
     --this table contains all the stations. used for mapping
     stationID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
-    stationName,
-    latitude,
-    longitude,
-    addressLine1,
-    addressLine2, --can be NULL
-    postcode
+    stationName VARCHAR(50) NOT NULL,
+    --geometery type
+    --fix
+    latitude INT,
+    longitude INT,
+    addressLine1 VARCHAR(50) NOT NULL,
+    addressLine2 VARCHAR(50), --can be NULL
+    --fix
+    postcode VARCHAR(7) NOT NULL
     --example for Edinburgh is lat 55.950161, long -3.213177
-
 )ENGINE=INNODB;
 
-CREATE TABLE stationStatus (
+CREATE TABLE StationStatus (
   --one to one relationship with stationInfo. Therefore primary key is forgeign key
-    stationID primary/forgeign, -- in reality this would be generated number not auto inc.
-    maxParkingSpaces,
-    availableParkingSpaces
+    stationID INT PRIMARY KEY, -- in reality this would be generated number not auto inc.
+    maxParkingSpaces INT NOT NULL,
+    availableParkingSpaces INT NOT NULL,
+    FOREIGN KEY (stationID) REFERENCES StationInfo (stationID)
 )ENGINE=INNODB;
 
-CREATE TABLE bikesAtStations (
-    bikeID,
-    stationID,
+CREATE TABLE BikesAtStations (
+    bikeID INT NOT NULL,
+    stationID INT NOT NULL,
     PRIMARY KEY (bikeID, stationID),
     --forgeign keys : bike ID @ station ID
-    FOREIGN KEY (bikeID) REFERENCES bikeInfo (bikeID),
-    FOREIGN KEY (stationID) REFERENCES stationStatus (stationID)
+    FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID),
+    FOREIGN KEY (stationID) REFERENCES StationInfo (stationID)
 )ENGINE=INNODB;
 
-CREATE TABLE usersUsingBikes (
+CREATE TABLE UsersUsingBikes (
     --current bikes that are being used by users
+    bikeID INT NOT NULL,
+    userID INT NOT NULL,
     PRIMARY KEY (bikeID, userID),
     --forgeign keys : bike ID @ station ID
-    FOREIGN KEY (bikeID) REFERENCES bikeInfo (bikeID),
-    FOREIGN KEY (userID) REFERENCES userInfo (userID)
+    FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID),
+    FOREIGN KEY (userID) REFERENCES UserInfo (userID)
 
-CREATE TABLE bikeTracking (
-    --combination of bikesAtStations and usersUsingBikes
-    test INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
-)ENGINE=INNODB;
-
-CREATE TABLE finishedRides (
+CREATE TABLE FinishedRides (
     --old logs of all the finished rides
     rideID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
-    userID,
-    startStationID,
-    endStationID,
-    rideLength,
-    pricePaid
+    userID INT NOT NULL,
+    startStationID INT NOT NULL,
+    endStationID INT NOT NULL,
+    startTime DATE NOT NULL,
+    endTime DATE NOT NULL,
+    pricePaid INT NOT NULL,
+    FOREIGN KEY (userID) REFERENCES UserInfo (userID),
+    FOREIGN KEY (startStationID) REFERENCES StationStatus (stationID),
+    FOREIGN KEY (endStationID) REFERENCES StationStatus (stationID)
 )ENGINE=INNODB;
 
-CREATE TABLE scheduledMaintenance (
-    --management scheduled maintenance
+CREATE TABLE CurrentUserReports(
+    reportID INT PRIMARY KEY AUTO_INCREMENT,
+    userID INT NOT NULL,
+    bikeID INT NOT NULL,
+    problem ENUM('not sure', 'yet'),
+    --fix
+    longitude INT NOT NULL,
+    latitude INT NOT NULL,
+    FOREIGN KEY (userID) REFERENCES UserInfo (userID),
+    FOREIGN KEY (bikeID) REFERENCES BikeInfor (bikeID),
+)ENGINE=INNODB;
+
+CREATE TABLE SolvedUserReports(
+    reportID INT PRIMARY KEY,
+    userID INT NOT NULL,
+    bikeID INT NOT NULL,
+    problem ENUM('not sure', 'yet'),
+    --fix
+    longitude INT NOT NULL,
+    latitude INT NOT NULL,
+    staffID INT NOT NULL,
+    solved BOOLEAN NOT NULL,
+    needsMaintenance BOOLEAN NOT NULL,
+    FOREIGN KEY (userID) REFERENCES UserInfo (userID),
+    FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID),
+    FOREIGN KEY (staffID) REFERENCES StaffInfo (staffID)
+)ENGINE=INNODB
+
+CREATE TABLE ScheduledMaintenance (
+    --staff scheduled maintenance
     maintenanceID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
-    bikeID,
-    staffID, --who scheduled the maintenance
-    dateScheduled,
-    estimatedLengthOfRepair
-
+    bikeID INT NOT NULL,
+    staffID INT NOT NULL, --who scheduled the maintenance
+    reportID INT NOT NULL,
+    dateScheduled DATE NOT NULL,
+    estimatedLengthOfRepair TIME NOT NULL,
+    FOREIGN KEY (userID) REFERENCES UserInfo (userID),
+    FOREIGN KEY (staffID) REFERENCES StaffInfo (staffID),
+    FOREIGN KEY (reportID) REFERENCES SolvedUserReports (reportID)
 )ENGINE=INNODB;
 
-CREATE TABLE completedMaintenance (
+CREATE TABLE CompletedMaintenance (
     --old logs of all completed maintenance
-    maintenanceID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
-    bikeID,
-    staffID, --who fixed the bike
-    dateScheduled,
-    estimatedLengthOfRepair,
-    dateOfCompletion,
-    notes
+    maintenanceID INT PRIMARY KEY,
+    bikeID INT NOT NULL,
+    staffID INT NOT NULL, --who fixed the bike
+    dateScheduled DATE NOT NULL,
+    estimatedLengthOfRepair TIME NOT NULL,
+    dateOfCompletion DATE NOT NULL,
+    notes VARCHAR(200),
+    FOREIGN KEY (maintenanceID) REFERENCES ScheduledMaintenance (maintenanceID),
+    FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID),
+    FOREIGN KEY (staffID) REFERENCES StaffInfo (staffID)
 )ENGINE=INNODB;
 
-CREATE TABLE currentBookings (
+CREATE TABLE CurrentBookings (
     --current bookings that have not been completed yet
     bookingID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
-    bikeID,
-    stationID,
-    userID,
-    timeOfBooking
+    bikeID INT NOT NULL,
+    stationID INT NOT NULL,
+    userID INT NOT NULL,
+    timeOfBooking DATE NOT NULL,
+    FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID),
+    FOREIGN KEY (stationID) REFERENCES StationInfo (stationID),
+    FOREIGN KEY (userID) REFERENCES UserInfo (userID)
 )ENGINE=INNODB;
 
-CREATE TABLE oldBookings (
+CREATE TABLE OldBookings (
     --old logs for bookings
-    bookingID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
-    bikeID,
-    stationID,
-    userID,
-    timeOfBooking,
-    dateOfBooking,
-    pickedUp, --bool
-    extraCharge --bool
+    bookingID INT PRIMARY KEY, -- in reality this would be generated number not auto inc.
+    bikeID INT NOT NULL,
+    stationID INT NOT NULL,
+    userID INT NOT NULL,
+    timeOfBooking TIME NOT NULL,
+    dateOfBooking DATE NOT NULL,
+    pickedUp BOOLEAN,
+    extraCharge BOOLEAN,
+    FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID),
+    FOREIGN KEY (stationID) REFERENCES StationInfo (stationID),
+    FOREIGN KEY (userID) REFERENCES UserInfo (userID)
 )ENGINE=INNODB;
 
+/*
 CREATE TABLE bikeData (
     --fancy stats
     bikeID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
@@ -137,3 +179,4 @@ CREATE TABLE userData (
     userID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
 
 )ENGINE=INNODB;
+*/
