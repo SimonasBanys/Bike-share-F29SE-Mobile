@@ -141,6 +141,7 @@ CREATE TABLE CompletedMaintenance (
     dateScheduled DATE NOT NULL,
     estimatedLengthOfRepair TIME NOT NULL,
     dateOfCompletion DATE NOT NULL,
+    lengthOfRepair TIME NOT NULL,
     notes VARCHAR(300),
     FOREIGN KEY (maintenanceID) REFERENCES ScheduledMaintenance (maintenanceID),
     FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID),
