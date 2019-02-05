@@ -23,16 +23,18 @@ OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
 <table style="border: 1px solid black; width: 100%;">
     <thead>
     <tr>
-        <th>Maintenance ID</th>
-        <th>Bike ID</th>
-        <th>Staff ID</th>
         <th>Report ID</th>
-        <th>Date Scheduled</th>
-        <th>Estimated Length Of Repair</th>
+        <th>User ID</th>
+        <th>Bike ID</th>
+        <th>problem</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Staff ID</th>
+        <th>Needs Maintenance</th>
     </tr>
 
     <?php
-    $query = "SELECT * FROM CurrentUserReports";
+    $query = "SELECT * FROM SolvedUserReports WHERE needsMaintenance='yes'";
     $result = mysqli_query($dbc, $query);
     while($row = mysqli_fetch_array($result)) {
         $rows[] = $row;
@@ -40,12 +42,14 @@ OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
     foreach ($rows as $row){
         ?>
         <tr>
-            <td><?php echo $row['maintenanceID']; ?></td>
-            <td><?php echo $row['bikeID']; ?></td>
-            <td><?php echo $row['staffID']; ?></td>
             <td><?php echo $row['reportID']; ?></td>
-            <td><?php echo $row['dateScheduled']; ?></td>
-            <td><?php echo $row['estimatedLengthOfRepair']; ?></td>
+            <td><?php echo $row['userID']; ?></td>
+            <td><?php echo $row['bikeID']; ?></td>
+            <td><?php echo $row['problem']; ?></td>
+            <td><?php echo $row['latitude']; ?></td>
+            <td><?php echo $row['longitude']; ?></td>
+            <td><?php echo $row['staffID']; ?></td>
+            <td><?php echo $row['needsMaintenance']; ?></td>
         </tr>
         <?php
     }
@@ -53,5 +57,15 @@ OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
     </thead>
 
 </table>
+
+<form action="scheduledmaintenance.php" method="post">
+<h1>Schedule Maintenance:</h1><br>
+Report ID: <input type="number" name="reportID"><br>
+Your Staff ID: <input type="number" name="staffID"><br>
+Date Scheduled: <input type="date" name="dateScheduled"><br>
+Estimated Length Of Repair: <input type="time" name="estimatedLengthOfRepair"><br>
+<input type="submit">
+</form>
+
 </body>
 </html>
