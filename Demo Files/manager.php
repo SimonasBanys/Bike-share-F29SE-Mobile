@@ -72,20 +72,20 @@ OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
     <?php
     $query = "SELECT * FROM SolvedUserReports WHERE needsMaintenance='yes'";
     $result = mysqli_query($dbc, $query);
-    while($row = mysqli_fetch_array($result)) {
-        $rows[] = $row;
+    while($row1 = mysqli_fetch_array($result)) {
+        $rows1[] = $row1;
     }
-    foreach ($rows as $row){
+    foreach ($rows1 as $row1){
         ?>
         <tr>
-            <td><?php echo $row['reportID']; ?></td>
-            <td><?php echo $row['userID']; ?></td>
-            <td><?php echo $row['bikeID']; ?></td>
-            <td><?php echo $row['problem']; ?></td>
-            <td><?php echo $row['latitude']; ?></td>
-            <td><?php echo $row['longitude']; ?></td>
-            <td><?php echo $row['staffID']; ?></td>
-            <td><?php echo $row['needsMaintenance']; ?></td>
+            <td><?php echo $row1['reportID']; ?></td>
+            <td><?php echo $row1['userID']; ?></td>
+            <td><?php echo $row1['bikeID']; ?></td>
+            <td><?php echo $row1['problem']; ?></td>
+            <td><?php echo $row1['latitude']; ?></td>
+            <td><?php echo $row1['longitude']; ?></td>
+            <td><?php echo $row1['staffID']; ?></td>
+            <td><?php echo $row1['needsMaintenance']; ?></td>
         </tr>
         <?php
     }
@@ -110,18 +110,18 @@ OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
     <?php
     $query = "SELECT * FROM ScheduledMaintenance";
     $result = mysqli_query($dbc, $query);
-    while($row = mysqli_fetch_array($result)) {
-        $rows[] = $row;
+    while($row2 = mysqli_fetch_array($result)) {
+        $rows2[] = $row2;
     }
-    foreach ($rows as $row){
+    foreach ($rows2 as $row2){
         ?>
         <tr>
-            <td><?php echo $row['maintenanceID']; ?></td>
-            <td><?php echo $row['bikeID']; ?></td>
-            <td><?php echo $row['staffID']; ?></td>
-            <td><?php echo $row['reportID']; ?></td>
-            <td><?php echo $row['dateScheduled']; ?></td>
-            <td><?php echo $row['estimatedLengthOfRepair']; ?></td>
+            <td><?php echo $row2['maintenanceID']; ?></td>
+            <td><?php echo $row2['bikeID']; ?></td>
+            <td><?php echo $row2['staffID']; ?></td>
+            <td><?php echo $row2['reportID']; ?></td>
+            <td><?php echo $row2['dateScheduled']; ?></td>
+            <td><?php echo $row2['estimatedLengthOfRepair']; ?></td>
         </tr>
         <?php
     }
@@ -148,21 +148,21 @@ OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
     <?php
     $query = "SELECT * FROM CompletedMaintenance";
     $result = mysqli_query($dbc, $query);
-    while($row = mysqli_fetch_array($result)) {
-        $rows[] = $row;
+    while($row3 = mysqli_fetch_array($result)) {
+        $rows3[] = $row3;
     }
-    foreach ($rows as $row){
+    foreach ($rows3 as $row3){
         ?>
         <tr>
-            <td><?php echo $row['maintenanceID']; ?></td>
-            <td><?php echo $row['bikeID']; ?></td>
-            <td><?php echo $row['staffID']; ?></td>
-            <td><?php echo $row['reportID']; ?></td>
-            <td><?php echo $row['dateScheduled']; ?></td>
-            <td><?php echo $row['estimatedLengthOfRepair']; ?></td>
-            <td><?php echo $row['dateOfCompletion']; ?></td>
-            <td><?php echo $row['lengthOfRepair']; ?></td>
-            <td><?php echo $row['notes']; ?></td>
+            <td><?php echo $row3['maintenanceID']; ?></td>
+            <td><?php echo $row3['bikeID']; ?></td>
+            <td><?php echo $row3['staffID']; ?></td>
+            <td><?php echo $row3['reportID']; ?></td>
+            <td><?php echo $row3['dateScheduled']; ?></td>
+            <td><?php echo $row3['estimatedLengthOfRepair']; ?></td>
+            <td><?php echo $row3['dateOfCompletion']; ?></td>
+            <td><?php echo $row3['lengthOfRepair']; ?></td>
+            <td><?php echo $row3['notes']; ?></td>
         </tr>
         <?php
     }
