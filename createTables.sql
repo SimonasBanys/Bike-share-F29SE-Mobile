@@ -115,8 +115,7 @@ CREATE TABLE SolvedUserReports(
     latitude DECIMAL(10, 8),
     longitude DECIMAL(11, 8),
     staffID INT NOT NULL,
-    solved BOOLEAN NOT NULL,
-    needsMaintenance BOOLEAN NOT NULL,
+    needsMaintenance ENUM('yes', 'no') NOT NULL,
     FOREIGN KEY (userID) REFERENCES UserInfo (userID),
     FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID),
     FOREIGN KEY (staffID) REFERENCES StaffInfo (staffID)
