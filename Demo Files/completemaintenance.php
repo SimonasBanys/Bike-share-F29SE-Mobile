@@ -55,7 +55,7 @@ OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
 </table>
 
 <form action="actionmaintenance.php" method="post">
-<h1>Schedule Maintenance:</h1><br>
+<h1>Complete Maintenance:</h1><br>
 Maintenance ID: <input type="number" name="maintenanceID"><br>
 Your Staff ID: <input type="number" name="staffID"><br>
 Date of Completion: <input type="date" name="dateOfCompletion"><br>
