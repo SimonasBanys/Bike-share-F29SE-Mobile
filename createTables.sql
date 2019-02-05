@@ -136,7 +136,7 @@ CREATE TABLE ScheduledMaintenance (
 
 CREATE TABLE CompletedMaintenance (
     /*old logs of all completed maintenance*/
-    maintenanceID INT PRIMARY KEY,
+    maintenanceID INT NOT NULL,
     bikeID INT NOT NULL,
     staffID INT NOT NULL,
     reportID INT NOT NULL,
@@ -148,7 +148,7 @@ CREATE TABLE CompletedMaintenance (
     FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID),
     FOREIGN KEY (staffID) REFERENCES StaffInfo (staffID),
     FOREIGN KEY (reportID) REFERENCES SolvedUserReports (reportID),
-    PRIMARY KEY (maintenanceID, reportID),
+    PRIMARY KEY (maintenanceID, reportID)
 )ENGINE=INNODB;
 
 CREATE TABLE CurrentBookings (
