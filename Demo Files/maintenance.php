@@ -19,7 +19,7 @@ OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
     <button type="submit">Hide</button>
 </form>
 
-<h1>Reports:</h1>
+<h1>Solved Reports:</h1>
 <table style="border: 1px solid black; width: 100%;">
     <thead>
     <tr>

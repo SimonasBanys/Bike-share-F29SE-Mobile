@@ -23,13 +23,12 @@ OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
 <table style="border: 1px solid black; width: 100%;">
     <thead>
     <tr>
-        <th>Maintenance ID</th>
+        <th>Report ID</th>
+        <th>User ID</th>
         <th>Bike ID</th>
-        <th>Staff ID</th>
-        <th>Date Scheduled</th>
-        <th>Estimated Length Of Repair</th>
-        <th>Date of Completion</th>
-        <th>Notes</th>
+        <th>Problem</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
     </tr>
 
     <?php
@@ -41,13 +40,12 @@ OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
     foreach ($rows as $row){
         ?>
         <tr>
-            <td><?php echo $row['maintenanceID']; ?></td>
+            <td><?php echo $row['reportID']; ?></td>
+            <td><?php echo $row['userID']; ?></td>
             <td><?php echo $row['bikeID']; ?></td>
-            <td><?php echo $row['staffID']; ?></td>
-            <td><?php echo $row['dateScheduled']; ?></td>
-            <td><?php echo $row['estimatedLengthOfRepair']; ?></td>
-            <td><?php echo $row['dateOfCompletion']; ?></td>
-            <td><?php echo $row['notes']; ?></td>
+            <td><?php echo $row['problem']; ?></td>
+            <td><?php echo $row['latitude']; ?></td>
+            <td><?php echo $row['longitude']; ?></td>
         </tr>
         <?php
     }
@@ -57,6 +55,121 @@ OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
 </table>
 
 
+<h1>Solved Reports:</h1>
+<table style="border: 1px solid black; width: 100%;">
+    <thead>
+    <tr>
+        <th>Report ID</th>
+        <th>User ID</th>
+        <th>Bike ID</th>
+        <th>problem</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Staff ID</th>
+        <th>Needs Maintenance</th>
+    </tr>
+
+    <?php
+    $query = "SELECT * FROM SolvedUserReports WHERE needsMaintenance='yes'";
+    $result = mysqli_query($dbc, $query);
+    while($row = mysqli_fetch_array($result)) {
+        $rows[] = $row;
+    }
+    foreach ($rows as $row){
+        ?>
+        <tr>
+            <td><?php echo $row['reportID']; ?></td>
+            <td><?php echo $row['userID']; ?></td>
+            <td><?php echo $row['bikeID']; ?></td>
+            <td><?php echo $row['problem']; ?></td>
+            <td><?php echo $row['latitude']; ?></td>
+            <td><?php echo $row['longitude']; ?></td>
+            <td><?php echo $row['staffID']; ?></td>
+            <td><?php echo $row['needsMaintenance']; ?></td>
+        </tr>
+        <?php
+    }
+    ?>
+    </thead>
+
+</table>
+
+
+<h1>Scheduled Maintenance:</h1>
+<table style="border: 1px solid black; width: 100%;">
+    <thead>
+    <tr>
+        <th>Maintenance ID</th>
+        <th>Bike ID</th>
+        <th>Staff ID</th>
+        <th>Report ID</th>
+        <th>Date Scheduled</th>
+        <th>Estimated Length Of Repair</th>
+    </tr>
+
+    <?php
+    $query = "SELECT * FROM ScheduledMaintenance";
+    $result = mysqli_query($dbc, $query);
+    while($row = mysqli_fetch_array($result)) {
+        $rows[] = $row;
+    }
+    foreach ($rows as $row){
+        ?>
+        <tr>
+            <td><?php echo $row['maintenanceID']; ?></td>
+            <td><?php echo $row['bikeID']; ?></td>
+            <td><?php echo $row['staffID']; ?></td>
+            <td><?php echo $row['reportID']; ?></td>
+            <td><?php echo $row['dateScheduled']; ?></td>
+            <td><?php echo $row['estimatedLengthOfRepair']; ?></td>
+        </tr>
+        <?php
+    }
+    ?>
+    </thead>
+
+</table>
+
+<h1>Completed Maintenance:</h1>
+<table style="border: 1px solid black; width: 100%;">
+    <thead>
+    <tr>
+        <th>Maintenance ID</th>
+        <th>Bike ID</th>
+        <th>Staff ID</th>
+        <th>Report ID</th>
+        <th>Date Scheduled</th>
+        <th>Estimated Length Of Repair</th>
+        <th>Date of Completion</th>
+        <th>Length of Repair</th>
+        <th>Notes</th>
+    </tr>
+
+    <?php
+    $query = "SELECT * FROM ScheduledMaintenance";
+    $result = mysqli_query($dbc, $query);
+    while($row = mysqli_fetch_array($result)) {
+        $rows[] = $row;
+    }
+    foreach ($rows as $row){
+        ?>
+        <tr>
+            <td><?php echo $row['maintenanceID']; ?></td>
+            <td><?php echo $row['bikeID']; ?></td>
+            <td><?php echo $row['staffID']; ?></td>
+            <td><?php echo $row['reportID']; ?></td>
+            <td><?php echo $row['dateScheduled']; ?></td>
+            <td><?php echo $row['estimatedLengthOfRepair']; ?></td>
+            <td><?php echo $row['dateOfCompletion']; ?></td>
+            <td><?php echo $row['lengthOfRepair']; ?></td>
+            <td><?php echo $row['notes']; ?></td>
+        </tr>
+        <?php
+    }
+    ?>
+    </thead>
+
+</table>
 
 </body>
 </html>
