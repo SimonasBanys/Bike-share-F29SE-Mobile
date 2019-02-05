@@ -31,10 +31,10 @@ while($row = mysqli_fetch_array($result)) {
     $array[] = $row;
 }
 
-$v1 = $array[0][2];
-$v2 = $array[0][4];
-$v3 = $array[0][5];
-$v3 = $array[0][6];
+$v1 = $array[0][1];
+$v2 = $array[0][3];
+$v3 = $array[0][4];
+$v4 = $array[0][5];
 
 $query="INSERT INTO CompletedMaintenance
 (maintenanceID, bikeID, staffID, reportID, dateScheduled, estimatedLengthOfRepair, dateOfCompletion, lengthOfRepair, notes)
