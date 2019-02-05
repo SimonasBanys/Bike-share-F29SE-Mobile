@@ -16,45 +16,36 @@ $repID = $_POST[reportID];
 
 echo "Array built... <br>";
 
-$query = "SELECT 'bikeID' FROM SolvedUserReports WHERE reportID ='" .$repID. "' AND needsMaintenance ='yes'";
+$query = "SELECT * FROM SolvedUserReports WHERE reportID ='" .$repID. "' AND needsMaintenance ='yes'";
 echo "query built... <br>";
 $result = mysqli_query($dbc, $query);
 echo "got result... <br>";
 while($row = mysqli_fetch_array($result)) {
+  print_r($row);
     $array[] = $row;
 }
 
-$bikeID = $array[0][1];
+$bikeID = $array[0][2];
 
 $staffID = $_POST[staffID];
-$dS = $_POST[dateScheduled];
-$eLoR = $_POST[estimatedLengthOfRepair];
+$input_dS = $_POST[dateScheduled];
+$dS=date("Y-m-d",strtotime($input_dS));
+$input_eLoR = $_POST[estimatedLengthOfRepair];
+$eLoR=date("H:i:s",strtotime($input_eLoR));
 
 $query="INSERT INTO ScheduledMaintenance
 (bikeID, staffID, reportID, dateScheduled, estimatedLengthOfRepair)
-VALUES ($bikeID,$staffID,$repID,$repID,$dS,$eLoR)";
+VALUES ('$bikeID','$staffID','$repID','$dS','$eLoR')";
 
 if(mysqli_query($dbc, $query)){
-
     echo "Done <br>";
-
-    echo "Deleting old report... <br>";
-
-    $delQuery = "DELETE FROM SolvedUserReports WHERE reportID ='" .$repID. "'";
-
-    if(mysqli_query($dbc, $delQuery)){
-        echo "Done <br>";
-    }else{
-        echo "ERROR:" . mysqli_error($dbc);
-    }
-
 }else{
     echo "ERROR:" . mysqli_error($dbc);
 }
 
 
 ?>
-<form method ="post" action="report.php">
+<form method ="post" action="maintenance.php">
     <h1>
         Press to go back
     </h1>
