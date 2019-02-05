@@ -1,4 +1,3 @@
-
 DROP TABLE OldBookings;
 DROP TABLE CurrentBookings;
 DROP TABLE CompletedMaintenance;
@@ -31,7 +30,6 @@ CREATE TABLE BikeInfo (
     bikeID INT PRIMARY KEY AUTO_INCREMENT,
     bikeName VARCHAR(15) NOT NULL,
     inEco BOOLEAN NOT NULL
-
 )ENGINE=INNODB;
 
 CREATE TABLE StaffInfo (
@@ -40,7 +38,8 @@ CREATE TABLE StaffInfo (
     username VARCHAR(50) NOT NULL,
     firstName VARCHAR(50) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    /* md5 hashing */
+    password CHAR(32) NOT NULL,
     email VARCHAR(320) NOT NULL,
     DoB DATE NOT NULL,
     jobTitle ENUM('dev', 'maintenance', 'manager') NOT NULL
@@ -50,12 +49,10 @@ CREATE TABLE StationInfo (
     /*this table contains all the stations. used for mapping*/
     stationID INT PRIMARY KEY AUTO_INCREMENT,
     stationName VARCHAR(50) NOT NULL,
-    /*geometery type fix*/
-    latitude INT,
-    longitude INT,
+    latitude DECIMAL(10, 8),
+    longitude DECIMAL(11, 8),
     addressLine1 VARCHAR(50) NOT NULL,
     addressLine2 VARCHAR(50),
-    /*fix*/
     postcode VARCHAR(7) NOT NULL
     /*example for Edinburgh is lat 55.950161, long -3.213177*/
 )ENGINE=INNODB;
@@ -103,10 +100,9 @@ CREATE TABLE CurrentUserReports(
     reportID INT PRIMARY KEY AUTO_INCREMENT,
     userID INT NOT NULL,
     bikeID INT NOT NULL,
-    problem ENUM('not sure', 'yet'),
-    /* fix */
-    longitude INT NOT NULL,
-    latitude INT NOT NULL,
+    problem VARCHAR(300),
+    latitude DECIMAL(10, 8),
+    longitude DECIMAL(11, 8),
     FOREIGN KEY (userID) REFERENCES UserInfo (userID),
     FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID)
 )ENGINE=INNODB;
@@ -115,10 +111,9 @@ CREATE TABLE SolvedUserReports(
     reportID INT PRIMARY KEY,
     userID INT NOT NULL,
     bikeID INT NOT NULL,
-    problem ENUM('not sure', 'yet'),
-    /* fix */
-    longitude INT NOT NULL,
-    latitude INT NOT NULL,
+    problem VARCHAR(300),
+    latitude DECIMAL(10, 8),
+    longitude DECIMAL(11, 8),
     staffID INT NOT NULL,
     solved BOOLEAN NOT NULL,
     needsMaintenance BOOLEAN NOT NULL,
@@ -147,7 +142,7 @@ CREATE TABLE CompletedMaintenance (
     dateScheduled DATE NOT NULL,
     estimatedLengthOfRepair TIME NOT NULL,
     dateOfCompletion DATE NOT NULL,
-    notes VARCHAR(200),
+    notes VARCHAR(300),
     FOREIGN KEY (maintenanceID) REFERENCES ScheduledMaintenance (maintenanceID),
     FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID),
     FOREIGN KEY (staffID) REFERENCES StaffInfo (staffID)
@@ -180,17 +175,3 @@ CREATE TABLE OldBookings (
     FOREIGN KEY (stationID) REFERENCES StationInfo (stationID),
     FOREIGN KEY (userID) REFERENCES UserInfo (userID)
 )ENGINE=INNODB;
-
-/*
-CREATE TABLE bikeData (
-    --fancy stats
-    bikeID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
-
-)ENGINE=INNODB;
-
-CREATE TABLE userData (
-    --fancy stats
-    userID INT PRIMARY KEY AUTO_INCREMENT, -- in reality this would be generated number not auto inc.
-
-)ENGINE=INNODB;
-*/
