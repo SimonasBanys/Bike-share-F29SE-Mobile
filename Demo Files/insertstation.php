@@ -36,7 +36,7 @@ if(mysqli_query($dbc, $query)){
     while($row = mysqli_fetch_array($result2)) {
         $array[] = $row;
     }
-    $v1 = $array[0][1];
+    $v1 = $array[0][0];
 
     $query3="INSERT INTO StationStatus
     (stationID, maxParkingSpaces, availableParkingSpaces)
@@ -54,7 +54,7 @@ if(mysqli_query($dbc, $query)){
 
 
 ?>
-<form method ="post" action="report.php">
+<form method ="post" action="insert.php">
     <h1>
         Press to go back
     </h1>

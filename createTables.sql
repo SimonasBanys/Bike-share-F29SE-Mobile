@@ -53,7 +53,7 @@ CREATE TABLE StationInfo (
     longitude DECIMAL(11, 8),
     addressLine1 VARCHAR(50) NOT NULL,
     addressLine2 VARCHAR(50),
-    postcode VARCHAR(7) NOT NULL
+    postcode VARCHAR(8) NOT NULL
     /*example for Edinburgh is lat 55.950161, long -3.213177*/
 )ENGINE=INNODB;
 
