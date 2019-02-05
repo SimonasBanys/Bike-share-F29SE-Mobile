@@ -34,7 +34,7 @@ OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
     </tr>
 
     <?php
-    $query = "SELECT * FROM SolvedUserReports WHERE needsMaintenance='yes'";
+    $query = "SELECT * FROM SolvedUserReports";
     $result = mysqli_query($dbc, $query);
     while($row = mysqli_fetch_array($result)) {
         $rows[] = $row;

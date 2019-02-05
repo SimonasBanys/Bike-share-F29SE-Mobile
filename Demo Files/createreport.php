@@ -1,6 +1,6 @@
 <html>
 <body>
-<h1>Solving report...</h1>
+<h1>Creating report...</h1>
 
 <?php
 DEFINE ('DB_HOST', 'mysql-server-1.macs.hw.ac.uk');

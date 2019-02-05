@@ -34,7 +34,7 @@ $nM = $_POST[needsMaintenance];
 
 $query="INSERT INTO SolvedUserReports
 (reportID, userID, bikeID, problem, latitude, longitude, staffID, needsMaintenance)
-VALUES ($repID,$v1,$v2,'$v3',$v4,$v5,$staffID,'$nM')";
+VALUES ('$repID','$v1','$v2','$v3','$v4','$v5','$staffID','$nM')";
 
 if(mysqli_query($dbc, $query)){
 
