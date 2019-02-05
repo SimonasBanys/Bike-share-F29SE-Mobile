@@ -59,8 +59,8 @@ OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
 Report ID: <input type="number" name="reportID"><br>
 Your Staff ID: <input type="number" name="staffID"><br>
 Does this need maintenance?:<br>
-<input type="radio" name="needsMaintenance" value="yes"><br>
-<input type="radio" name="needsMaintenance" value="no"><br>
+Yes <input type="radio" name="needsMaintenance" value="yes"><br>
+No <input type="radio" name="needsMaintenance" value="no"><br>
 <input type="submit">
 </form>
 
