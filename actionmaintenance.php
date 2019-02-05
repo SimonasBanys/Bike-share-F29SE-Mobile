@@ -34,10 +34,11 @@ while($row = mysqli_fetch_array($result)) {
 $v1 = $array[0][2];
 $v2 = $array[0][4];
 $v3 = $array[0][5];
+$v3 = $array[0][6];
 
 $query="INSERT INTO CompletedMaintenance
-(maintenanceID, bikeID, staffID, dateScheduled, estimatedLengthOfRepair, dateOfCompletion, lengthOfRepair, notes)
-VALUES ('$mainID','$v1','$staffID','$v2','$v3','$doC','$loR','$notes')";
+(maintenanceID, bikeID, staffID, reportID, dateScheduled, estimatedLengthOfRepair, dateOfCompletion, lengthOfRepair, notes)
+VALUES ('$mainID','$v1','$staffID','$v2','$v3','$v4','$doC','$loR','$notes')";
 
 if(mysqli_query($dbc, $query)){
 

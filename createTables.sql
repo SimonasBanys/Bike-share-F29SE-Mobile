@@ -123,14 +123,15 @@ CREATE TABLE SolvedUserReports(
 
 CREATE TABLE ScheduledMaintenance (
     /* staff scheduled maintenance */
-    maintenanceID INT PRIMARY KEY AUTO_INCREMENT,
+    maintenanceID INT AUTO_INCREMENT,
     bikeID INT NOT NULL,
     staffID INT NOT NULL,
     reportID INT NOT NULL,
     dateScheduled DATE NOT NULL,
     estimatedLengthOfRepair TIME NOT NULL,
     FOREIGN KEY (staffID) REFERENCES StaffInfo (staffID),
-    FOREIGN KEY (reportID) REFERENCES SolvedUserReports (reportID)
+    FOREIGN KEY (reportID) REFERENCES SolvedUserReports (reportID),
+    PRIMARY KEY (maintenanceID, reportID)
 )ENGINE=INNODB;
 
 CREATE TABLE CompletedMaintenance (
@@ -138,14 +139,16 @@ CREATE TABLE CompletedMaintenance (
     maintenanceID INT PRIMARY KEY,
     bikeID INT NOT NULL,
     staffID INT NOT NULL,
+    reportID INT NOT NULL,
     dateScheduled DATE NOT NULL,
     estimatedLengthOfRepair TIME NOT NULL,
     dateOfCompletion DATE NOT NULL,
     lengthOfRepair TIME NOT NULL,
     notes VARCHAR(300),
-    FOREIGN KEY (maintenanceID) REFERENCES ScheduledMaintenance (maintenanceID),
     FOREIGN KEY (bikeID) REFERENCES BikeInfo (bikeID),
-    FOREIGN KEY (staffID) REFERENCES StaffInfo (staffID)
+    FOREIGN KEY (staffID) REFERENCES StaffInfo (staffID),
+    FOREIGN KEY (reportID) REFERENCES SolvedUserReports (reportID),
+    PRIMARY KEY (maintenanceID, reportID),
 )ENGINE=INNODB;
 
 CREATE TABLE CurrentBookings (

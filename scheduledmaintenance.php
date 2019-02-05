@@ -21,7 +21,6 @@ echo "query built... <br>";
 $result = mysqli_query($dbc, $query);
 echo "got result... <br>";
 while($row = mysqli_fetch_array($result)) {
-  print_r($row);
     $array[] = $row;
 }
 
