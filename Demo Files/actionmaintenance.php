@@ -50,6 +50,14 @@ if(mysqli_query($dbc, $query)){
 
     if(mysqli_query($dbc, $delQuery)){
         echo "Done <br>";
+
+          $updateQuery = "UPDATE SolvedUserReports SET needsMaintenance='no' WHERE reportID='" .$v2. "'";
+          if(mysqli_query($dbc, $updateQuery)){
+              echo "Updated Report<br>";
+            }else{
+                echo "ERROR:" . mysqli_error($dbc);
+            }
+
     }else{
         echo "ERROR:" . mysqli_error($dbc);
     }
