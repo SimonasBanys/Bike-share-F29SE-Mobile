@@ -21,6 +21,7 @@ CREATE TABLE UserInfo(
     firstName VARCHAR(50) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL,
+    salt VARCHAR(45) NOT NULL,
     email VARCHAR(320) NOT NULL,
     DoB DATE NOT NULL
 )ENGINE=INNODB;
@@ -38,8 +39,8 @@ CREATE TABLE StaffInfo (
     username VARCHAR(50) NOT NULL,
     firstName VARCHAR(50) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
-    /* md5 hashing */
-    password CHAR(32) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    salt VARCHAR(45) NOT NULL,
     email VARCHAR(320) NOT NULL,
     DoB DATE NOT NULL,
     jobTitle ENUM('dev', 'maintenance', 'manager') NOT NULL
