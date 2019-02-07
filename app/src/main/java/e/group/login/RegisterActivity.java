@@ -44,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String DoB;
     private String email;
     private ProgressDialog pDialog;
-    private String register_url = "http://mysql-server-1.macs.hw.ac.uk/register.php";
+    private String register_url = "http://www2.macs.hw.ac.uk/~sb93/register.php";
     private SessionHandler session;
 
     @Override

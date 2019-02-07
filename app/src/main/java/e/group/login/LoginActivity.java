@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private String username;
     private String password;
     private ProgressDialog pDialog;
-    private String login_url = "http://mysql-server-1.macs.hw.ac.uk/login.php";
+    private String login_url = "http://www2.macs.hw.ac.uk/~sb93/login.php";
     private SessionHandler session;
 
 
