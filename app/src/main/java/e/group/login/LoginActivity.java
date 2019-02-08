@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         session = new SessionHandler(getApplicationContext());
 
         if(session.isLoggedIn()){
-            loadDashboard();
+            loadMaps();
         }
         setContentView(R.layout.activity_login);
 
@@ -80,8 +80,8 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Launch Dashboard Activity on Successful Login
      */
-    private void loadDashboard() {
-        Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+    private void loadMaps() {
+        Intent i = new Intent(getApplicationContext(), MapsActivity.class);
         startActivity(i);
         finish();
 
@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             if (response.getInt(KEY_STATUS) == 0) {
                                 session.loginUser(username,response.getString(KEY_FIRST_NAME), response.getString(KEY_LAST_NAME));
-                                loadDashboard();
+                                loadMaps();
 
                             }else{
                                 Toast.makeText(getApplicationContext(),

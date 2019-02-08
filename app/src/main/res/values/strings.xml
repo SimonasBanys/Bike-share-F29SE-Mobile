@@ -7,9 +7,9 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="already_having_account">Already Having an Account?</string>
+    <string name="already_having_account">Have an Account?</string>
     <string name="log_in">Log In</string>
-    <string name="not_having_account">Not Having an Account?</string>
+    <string name="not_having_account">Dont have an Account?</string>
     <string name="sign_up">Sign Up</string>
     <string name="logout">Logout</string>
     <string name="enter_dob">Enter Date of Birth</string>
