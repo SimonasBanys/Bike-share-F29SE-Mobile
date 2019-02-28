@@ -30,6 +30,8 @@ CREATE TABLE BikeInfo (
     /*this table contains all unique bike identifiers*/
     bikeID INT PRIMARY KEY AUTO_INCREMENT,
     bikeName VARCHAR(15) NOT NULL,
+    latitude DECIMAL(10, 8),
+    longitude DECIMAL(11, 8),
     inEco BOOLEAN NOT NULL
 )ENGINE=INNODB;
 
@@ -89,8 +91,8 @@ CREATE TABLE FinishedRides (
     userID INT NOT NULL,
     startStationID INT NOT NULL,
     endStationID INT NOT NULL,
-    startTime DATE NOT NULL,
-    endTime DATE NOT NULL,
+    startTime DATETIME NOT NULL,
+    endTime DATETIME NOT NULL,
     pricePaid INT NOT NULL,
     FOREIGN KEY (userID) REFERENCES UserInfo (userID),
     FOREIGN KEY (startStationID) REFERENCES StationStatus (stationID),
