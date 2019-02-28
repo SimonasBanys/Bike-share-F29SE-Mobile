@@ -1,15 +1,15 @@
 INSERT INTO UserInfo (username, firstName, lastName, password, salt, email, DoB)
 VALUES
-('FirstUser', 'Regan' 'Hay', 'hash', 'salt', 'rh49@hw.ac.uk', '1998-11-29');
+('FirstUser', 'Regan', 'Hay', 'hash', 'salt', 'rh49@hw.ac.uk', '1998-11-29');
 
-INSERT INTO BikeInfo (bikeName, latitude, longitude inEco)
+INSERT INTO BikeInfo (bikeName, latitude, longitude, inEco)
 VALUES
 ('BikeOne', '55.95201117', '-3.18945461', '1'),
 ('BikeTwo', '55.95201117', '-3.18945461', '1');
 
 INSERT INTO StaffInfo (username, firstName, lastName, password, salt, email, DoB, jobTitle)
 VALUES
-('admin', 'Admin' 'Istrator', 'hash', 'salt', 'SkedaddlAdmin@gmail.com', '2019-02-28', 'manager');
+('admin', 'Admin', 'Istrator', 'hash', 'salt', 'SkedaddlAdmin@gmail.com', '2019-02-28', 'manager');
 
 INSERT INTO StationInfo (stationName, latitude, longitude, addressLine1, addressLine2, postcode)
 VALUES
