@@ -8,7 +8,7 @@ $random_salt_length = 32;
  * @return
  */
 function userExists($username){
-    $query = "SELECT username FROM member WHERE username = ?";
+    $query = "SELECT username FROM StaffInfo WHERE username = '$username'";
     global $con;
     if($stmt = $con->prepare($query)){
         $stmt->bind_param("s",$username);
