@@ -26,7 +26,7 @@ html, body, #map-canvas {
     <button type="submit">Hide</button>
 </form>
 
-<h1>Maps: current bike density at stations</h1>
+<h1>Maps: Density of startStation for rides</h1>
 
 <div class="btn-group">
   <form method ="post" action="maps.php">
@@ -50,9 +50,9 @@ html, body, #map-canvas {
 
 <script>
 <?php
-    $query = "SELECT BikeInfo.latitude, BikeInfo.longitude
-              FROM BikeInfo, BikesAtStations
-              WHERE BikeInfo.bikeID=BikesAtStations.bikeID";
+    $query = "SELECT StationInfo.latitude, StationInfo.longitude
+              FROM StationInfo, FinishedRides
+              WHERE FinishedRides.startStationID=StationInfo.stationID";
   $result = mysqli_query($dbc, $query);
   while($row = mysqli_fetch_assoc($result)) {
     $data[] = $row;
@@ -77,9 +77,9 @@ $(document).ready(function() {
   function createHeatmap(){
     heatmap = new google.maps.visualization.HeatmapLayer({
       data: [],
-      radius: 30,
+      radius: 90,
       dissipating: true,
-      maxIntensity: 10
+      maxIntensity: 30
     });
 
     heatmap.setMap(map);
@@ -101,8 +101,6 @@ $(document).ready(function() {
   google.maps.event.addDomListener(window, 'load', createMap);
 });
 </script>
-<h6>
-  <?php echo $data_json; ?>
-<h6>
+
 </body>
 </html>
