@@ -186,6 +186,8 @@ CREATE TABLE OldBookings (
 
 /* welcome to the random generated part of this document, good luck
    after this there is manually entered data which is formatted nicer */
+
+/* bikes at station 1 */
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Rochette', 55.95201117, -3.18945461, 1);
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Chucho', 55.95201117, -3.18945461, 1);
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Yuri', 55.95201117, -3.18945461, 1);
@@ -196,16 +198,8 @@ insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Erica', 55.
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Mallissa', 55.95201117, -3.18945461, 1);
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Kimberley', 55.95201117, -3.18945461, 1);
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Pedro', 55.95201117, -3.18945461, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Elaina', 55.95201117, -3.18945461, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Cullan', 55.95201117, -3.18945461, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Jenelle', 55.95201117, -3.18945461, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Vyky', 55.95201117, -3.18945461, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Davide', 55.95201117, -3.18945461, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Fidelia', 55.95201117, -3.18945461, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Vi', 55.95201117, -3.18945461, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Carrol', 55.95201117, -3.18945461, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Jereme', 55.95201117, -3.18945461, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Lucho', 55.95201117, -3.18945461, 1);
+
+/* bikes at station 2 */
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Corbett', 55.95445231, -3.19302891, 1);
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Isak', 55.95445231, -3.19302891, 1);
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Massimo', 55.95445231, -3.19302891, 1);
@@ -216,16 +210,8 @@ insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Ericka', 55
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Ashlie', 55.95445231, -3.19302891, 1);
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Tedi', 55.95445231, -3.19302891, 1);
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Maggy', 55.95445231, -3.19302891, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Denys', 55.95445231, -3.19302891, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Carissa', 55.95445231, -3.19302891, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Vladamir', 55.95445231, -3.19302891, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Michele', 55.95445231, -3.19302891, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Sibylla', 55.95445231, -3.19302891, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Ashlie', 55.95445231, -3.19302891, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Piggy', 55.95445231, -3.19302891, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Cullin', 55.95445231, -3.19302891, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Pippo', 55.95445231, -3.19302891, 1);
-insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Hyacintha', 55.95445231, -3.19302891, 1);
+
+/* bikes at station 3 */
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Adriana', 55.95172524, -3.19575404, 1);
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Roxanna', 55.95172524, -3.19575404, 1);
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Remy', 55.95172524, -3.19575404, 1);
@@ -236,6 +222,34 @@ insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Ilise', 55.
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Janey', 55.95172524, -3.19575404, 1);
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Gun', 55.95172524, -3.19575404, 1);
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Selig', 55.95172524, -3.19575404, 1);
+
+/* bikes at station 4 change coordinates */
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Elaina', 55.94949298, -3.19018782, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Cullan', 55.94949298, -3.19018782, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Jenelle', 55.94949298, -3.19018782, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Vyky', 55.94949298, -3.19018782, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Davide', 55.94949298, -3.19018782, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Fidelia', 55.94949298, -3.19018782, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Vi', 55.94949298, -3.19018782, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Carrol', 55.94949298, -3.19018782, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Jereme', 55.94949298, -3.19018782, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Lucho', 55.94949298, -3.19018782, 1);
+
+/* bikes at station 5 change coordinates */
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Denys', 55.95143029, -3.18227279, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Carissa', 55.95143029, -3.18227279, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Vladamir', 55.95143029, -3.18227279, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Michele', 55.95143029, -3.18227279, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Sibylla', 55.95143029, -3.18227279, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Ashlie', 55.95143029, -3.18227279, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Piggy', 55.95143029, -3.18227279, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Cullin', 55.95143029, -3.18227279, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Pippo', 55.95143029, -3.18227279, 1);
+insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Hyacintha', 55.95143029, -3.18227279, 1);
+
+
+
+  /* bikes being used */
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Numbat', 55.936961205, -3.25787843, 1);
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Mountain duck', 55.95768623, -3.254516113, 1);
 insert into BikeInfo (bikeName, latitude, longitude, inEco) values ('Wallaby, euro', 55.942109726, -3.20349335, 1);
