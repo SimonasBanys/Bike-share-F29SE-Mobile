@@ -1,0 +1,23 @@
+Notes for Creating the Database:
+
+Actors (Established in the use case diagrams):
+- Bike Tracker
+- Bike Maintenance
+- Management
+- Management web-app
+- Booking System
+- User
+- User Application
+
+Tables:
+- User Information
+- Bike Information
+- Station Information
+- Bikes @ Stations
+- Users using Bikes
+- Finished Rides
+- Bike Data
+- Maintenance
+- Manager Information
+- Currently Booked
+- Old Bookings

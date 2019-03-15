@@ -1,32 +1,27 @@
-apply plugin: 'com.android.application'
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-android {
-    compileSdkVersion 26
-    defaultConfig {
-        applicationId "e.group.login"
-        minSdkVersion 26
-        targetSdkVersion 26
-        versionCode 1
-        versionName "0.1"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.3.2'
+        
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
     }
 }
 
-dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
-    implementation 'com.android.volley:volley:1.1.0'
-    implementation 'com.google.android.gms:play-services-maps:16.0.0'
-    implementation 'com.google.android.gms:play-services-location:15.0.1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
