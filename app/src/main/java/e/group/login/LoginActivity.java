@@ -13,7 +13,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +21,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final String KEY_STATUS = "status";
     private static final String KEY_MESSAGE = "message";
     private static final String KEY_FIRST_NAME = "first_name";
-    private static final String KEY_LAST_NAME = "last_name";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_EMPTY = "";
@@ -33,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private String login_url = "http://www2.macs.hw.ac.uk/~sb93/login.php";
     private SessionHandler session;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +64,9 @@ public class LoginActivity extends AppCompatActivity {
                 //Retrieve the data entered in the edit texts
                 username = etUsername.getText().toString().toLowerCase().trim();
                 password = etPassword.getText().toString().trim();
-                //if (validateInputs()) {
-                //    login();
-                //}
-                Intent i = new Intent(LoginActivity.this, MapsActivity.class);
-                startActivity(i);
-                finish();
+                if (validateInputs()) {
+                    login();
+                }
             }
         });
     }
@@ -120,8 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                             //Check if user got logged in successfully
 
                             if (response.getInt(KEY_STATUS) == 0) {
-                                session.loginUser(username,response.getString(KEY_FIRST_NAME), response.getString(KEY_LAST_NAME));
-                                loadMaps();
+                                session.loginUser(username,response.getString(KEY_FIRST_NAME));
 
                             }else{
                                 Toast.makeText(getApplicationContext(),
@@ -146,7 +139,9 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
         // Access the RequestQueue through your singleton class.
-        Volley.newRequestQueue(this).add(jsArrayRequest);
+        MySingleton.getInstance(this).addToRequestQueue(jsArrayRequest);
+        loadMaps();
+
     }
 
     /**

@@ -5,6 +5,11 @@ import android.content.SharedPreferences;
 
 import java.util.Date;
 
+
+/**
+ * Created by Abhi on 20 Jan 2018 020.
+ */
+
 public class SessionHandler {
     private static final String PREF_NAME = "UserSession";
     private static final String KEY_USERNAME = "username";
@@ -27,13 +32,10 @@ public class SessionHandler {
      *
      * @param username
      * @param firstName
-     * @param lastName
      */
-    public void loginUser(String username, String firstName, String lastName) {
+    public void loginUser(String username, String firstName) {
         mEditor.putString(KEY_USERNAME, username);
         mEditor.putString(KEY_FIRST_NAME, firstName);
-        mEditor.putString(KEY_LAST_NAME, lastName);
-
         Date date = new Date();
 
         //Set user session for next 7 days
@@ -78,8 +80,8 @@ public class SessionHandler {
         }
         User user = new User();
         user.setUsername(mPreferences.getString(KEY_USERNAME, KEY_EMPTY));
-        user.setFirstName(mPreferences.getString(KEY_FIRST_NAME, KEY_EMPTY));
-        user.setLastName(mPreferences.getString(KEY_LAST_NAME, KEY_EMPTY));
+        //user.setFullName(mPreferences.getString(KEY_FULL_NAME, KEY_EMPTY));
+        //user.setSessionExpiryDate(new Date(mPreferences.getLong(KEY_EXPIRES, 0)));
 
         return user;
     }
