@@ -1,23 +1,18 @@
 <?php
-DEFINE ('DB_HOST', 'mysql-server-1.macs.hw.ac.uk');
-DEFINE ('DB_USER', 'rh49');
-DEFINE ('DB_PASSWORD', 'e8FpS0qItsvAFLz4');
-DEFINE ('DB_NAME', 'rh49');
+session_start();
+include 'config.php';
 
-$dbc = @mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
-OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
+if($_SESSION['role'] != "dev" && $_SESSION['role'] != "manager" && $_SESSION['role'] != "field"){
+  header("Location: http://www2.macs.hw.ac.uk/~rh49/basicsignin.php");
+}
+$staffID = $_SESSION['staffID'];
 ?>
 <html lang="en">
 <head>
     <title>Reports</title>
 </head>
 <body>
-<form method ="post" action="demo.html">
-    <h1>
-        Press to hide database
-    </h1>
-    <button type="submit">Hide</button>
-</form>
+<button onclick="history.go(-1);">Back</button>
 
 <h1>Reports:</h1>
 <table style="border: 1px solid black; width: 100%;">
@@ -57,7 +52,7 @@ OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
 <form action="solvereport.php" method="post">
 <h1>Solve Report:</h1><br>
 Report ID: <input type="number" name="reportID"><br>
-Your Staff ID: <input type="number" name="staffID"><br>
+Your Staff ID: <input type="number" name="staffID" value="<?php echo htmlspecialchars($staffID); ?>" readonly><br>
 Does this need maintenance?:<br>
 Yes <input type="radio" name="needsMaintenance" value="yes"><br>
 No <input type="radio" name="needsMaintenance" value="no"><br>

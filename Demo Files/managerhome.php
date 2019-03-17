@@ -1,72 +1,89 @@
-  <!DOCTYPE html>
+<?php
+session_start();
+include 'config.php';
+
+if($_SESSION['role'] != "manager"){
+  header("Location: http://www2.macs.hw.ac.uk/~rh49/basicsignin.php");
+}
+?>
 <html lang="en">
 <head>
-    <title>Part 2 Demo</title>
+  <title>Manager Home</title>
 </head>
 <body>
-
-<form action="createreport.php" method="post">
-<h1>Create Report:</h1><br>
-Your User ID: <input type="number" name="userID"><br>
-Your Bike ID: <input type="number" name="bikeID"><br>
-Your problem: <input type="text" name="problem"><br>
-<input type="submit">
-</form>
+<h1>Welcome <?php echo("{$_SESSION['username']}"."");?>!</h1>
 
 <form method ="post" action="report.php">
-    <h1>
+    <h2>
         Press to show reports
-    </h1>
+    </h2>
     <button type="submit">Show</button>
 </form>
 
 <form method ="post" action="maintenance.php">
-    <h1>
+    <h2>
         Press to show solved reports
-    </h1>
+    </h2>
     <button type="submit">Show</button>
 </form>
 
 <form method ="post" action="completemaintenance.php">
-    <h1>
+    <h2>
         Press to show all scheduled maintenance
-    </h1>
+    </h2>
     <button type="submit">Show</button>
 </form>
 
 <form method ="post" action="manager.php">
-    <h1>
+    <h2>
         Press to show manager data
-    </h1>
+    </h2>
     <button type="submit">Show</button>
 </form>
 
 <form method ="post" action="allstations.php">
-    <h1>
+    <h2>
         Press to view all the stations
-    </h1>
+    </h2>
     <button type="submit">Show</button>
 </form>
 
 <form method ="post" action="insert.php">
-    <h1>
+    <h2>
         Press to insert more data
-    </h1>
+    </h2>
     <button type="submit">Go</button>
 </form>
 
 <form method ="post" action="maps.php">
-    <h1>
+    <h2>
         Press to go to map data
-    </h1>
+    </h2>
     <button type="submit">Go</button>
 </form>
 
 <form method ="post" action="staffcreate.php">
-    <h1>
+    <h2>
         Create staff account
-    </h1>
+    </h2>
     <button type="submit">Go</button>
 </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <form method ="post" action="logout.php">
+      <button type="submit">Log Out</button>
+  </form>
+
 </body>
 </html>

@@ -1,5 +1,10 @@
 <?php
+session_start();
 include 'config.php';
+
+if($_SESSION['role'] != "dev" && $_SESSION['role'] != "manager"){
+  header("Location: http://www2.macs.hw.ac.uk/~rh49/basicsignin.php");
+}
 ?>
 
 <html lang="en">
@@ -19,12 +24,9 @@ html, body, #map-canvas {
 }
 </style>
 <body>
-<form method ="post" action="demo.html">
-    <h1>
-        Press to hide maps
-    </h1>
-    <button type="submit">Hide</button>
-</form>
+  <form action="return.php" method="post">
+      <button type="submit">Back</button>
+  </form>
 
 <h1>Maps: Density of popular locations with high frequency of reports made</h1>
 

@@ -1,5 +1,10 @@
 <?php
+session_start();
 include 'config.php';
+
+if($_SESSION['role'] != "dev" && $_SESSION['role'] != "manager"){
+  header("Location: http://www2.macs.hw.ac.uk/~rh49/basicsignin.php");
+}
 ?>
 
 <html lang="en">
@@ -19,12 +24,9 @@ html, body, #map-canvas {
 }
 </style>
 <body>
-<form method ="post" action="demo.html">
-    <h1>
-        Press to hide maps
-    </h1>
-    <button type="submit">Hide</button>
-</form>
+  <form action="return.php" method="post">
+      <button type="submit">Back</button>
+  </form>
 
 <h1>Maps: current bike density at stations</h1>
 
@@ -47,6 +49,32 @@ html, body, #map-canvas {
 </div>
 
 <div id="map-canvas" style="border: 2px solid #3872ac;"></div>
+
+<table style="border: 1px solid black; width: 100%;">
+    <thead>
+    <tr>
+        <th>Station ID</th>
+        <th>Number of Bikes at that Station</th>
+    </tr>
+
+    <?php
+    $query = "SELECT stationID, COUNT(*) AS `Number of Bikes` FROM BikesAtStations GROUP BY stationID";
+    $result = mysqli_query($dbc, $query);
+    while($row = mysqli_fetch_array($result)) {
+        $rows[] = $row;
+    }
+    foreach ($rows as $row){
+        ?>
+        <tr>
+            <td><?php echo $row['stationID']; ?></td>
+            <td><?php echo $row['Number of Bikes']; ?></td>
+        </tr>
+        <?php
+    }
+    ?>
+    </thead>
+
+</table>
 
 <script>
 <?php
@@ -77,7 +105,7 @@ $(document).ready(function() {
   function createHeatmap(){
     heatmap = new google.maps.visualization.HeatmapLayer({
       data: [],
-      radius: 30,
+      radius: 120,
       dissipating: true,
       maxIntensity: 10
     });
@@ -86,12 +114,15 @@ $(document).ready(function() {
     heatmap.setMap(null);
     var jsonArray = [];
     var data = <?php echo $data_json; ?>;
-
     $.each(data, function (i, jsondata) {
       var jsonObject = {};
       jsonObject.latitude = jsondata.latitude;
       jsonObject.longitude = jsondata.longitude;
       jsonArray.push(new google.maps.LatLng(jsonObject.latitude,jsonObject.longitude));
+      var marker = new google.maps.Marker({
+        position: {lat: jsonObject.latitude, lng: jsonObject.longitude},
+        map: map
+      });
     });
     var pointArray = new google.maps.MVCArray(jsonArray);
     heatmap.setData(pointArray);
@@ -99,10 +130,9 @@ $(document).ready(function() {
   }
 
   google.maps.event.addDomListener(window, 'load', createMap);
-});
+  });
+
 </script>
-<h6>
-  <?php echo $data_json; ?>
-<h6>
+
 </body>
 </html>

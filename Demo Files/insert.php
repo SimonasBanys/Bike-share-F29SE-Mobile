@@ -1,23 +1,17 @@
 <?php
-DEFINE ('DB_HOST', 'mysql-server-1.macs.hw.ac.uk');
-DEFINE ('DB_USER', 'rh49');
-DEFINE ('DB_PASSWORD', 'e8FpS0qItsvAFLz4');
-DEFINE ('DB_NAME', 'rh49');
+session_start();
+include 'config.php';
 
-$dbc = @mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
-OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
+if($_SESSION['role'] != "dev" && $_SESSION['role'] != "manager"){
+  header("Location: http://www2.macs.hw.ac.uk/~rh49/basicsignin.php");
+}
 ?>
 <html lang="en">
 <head>
     <title>Reports</title>
 </head>
 <body>
-<form method ="post" action="demo.html">
-    <h1>
-        Press to go back
-    </h1>
-    <button type="submit">BACK</button>
-</form>
+<button onclick="history.go(-1);">Back</button>
 
 
 <form action="insertstation.php" method="post">

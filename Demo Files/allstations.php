@@ -1,23 +1,19 @@
 <?php
-DEFINE ('DB_HOST', 'mysql-server-1.macs.hw.ac.uk');
-DEFINE ('DB_USER', 'rh49');
-DEFINE ('DB_PASSWORD', 'e8FpS0qItsvAFLz4');
-DEFINE ('DB_NAME', 'rh49');
+session_start();
+include 'config.php';
 
-$dbc = @mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
-OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
+if($_SESSION['role'] != "dev" && $_SESSION['role'] != "manager" && $_SESSION['role'] != "field"){
+  header("Location: http://www2.macs.hw.ac.uk/~rh49/basicsignin.php");
+}
+$staffID = $_SESSION['staffID'];
 ?>
+
 <html lang="en">
 <head>
     <title>Station Info</title>
 </head>
 <body>
-<form method ="post" action="demo.html">
-    <h1>
-        Press to hide database
-    </h1>
-    <button type="submit">Hide</button>
-</form>
+<button onclick="history.go(-1);">Back</button>
 
 <h1>All Stations:</h1>
 <table style="border: 1px solid black; width: 100%;">

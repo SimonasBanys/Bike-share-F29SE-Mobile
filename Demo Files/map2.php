@@ -1,5 +1,10 @@
 <?php
+session_start();
 include 'config.php';
+
+if($_SESSION['role'] != "dev" && $_SESSION['role'] != "manager"){
+  header("Location: http://www2.macs.hw.ac.uk/~rh49/basicsignin.php");
+}
 ?>
 
 <html lang="en">
@@ -19,12 +24,9 @@ html, body, #map-canvas {
 }
 </style>
 <body>
-<form method ="post" action="demo.html">
-    <h1>
-        Press to hide maps
-    </h1>
-    <button type="submit">Hide</button>
-</form>
+  <form action="return.php" method="post">
+      <button type="submit">Back</button>
+  </form>
 
 <h1>Maps: Density of startStation for rides</h1>
 
@@ -47,6 +49,32 @@ html, body, #map-canvas {
 </div>
 
 <div id="map-canvas" style="border: 2px solid #3872ac;"></div>
+
+<table style="border: 1px solid black; width: 100%;">
+    <thead>
+    <tr>
+        <th>Station ID</th>
+        <th>Number of Bikes Starting at that Station</th>
+    </tr>
+
+    <?php
+    $query = "SELECT startStationID, COUNT(*) AS `Number of Bikes` FROM `FinishedRides` GROUP BY startStationID";
+    $result = mysqli_query($dbc, $query);
+    while($row = mysqli_fetch_array($result)) {
+        $rows[] = $row;
+    }
+    foreach ($rows as $row){
+        ?>
+        <tr>
+            <td><?php echo $row['startStationID']; ?></td>
+            <td><?php echo $row['Number of Bikes']; ?></td>
+        </tr>
+        <?php
+    }
+    ?>
+    </thead>
+
+</table>
 
 <script>
 <?php
@@ -77,9 +105,9 @@ $(document).ready(function() {
   function createHeatmap(){
     heatmap = new google.maps.visualization.HeatmapLayer({
       data: [],
-      radius: 90,
+      radius: 150,
       dissipating: true,
-      maxIntensity: 30
+      maxIntensity: 40
     });
 
     heatmap.setMap(map);
@@ -92,6 +120,10 @@ $(document).ready(function() {
       jsonObject.latitude = jsondata.latitude;
       jsonObject.longitude = jsondata.longitude;
       jsonArray.push(new google.maps.LatLng(jsonObject.latitude,jsonObject.longitude));
+      var marker = new google.maps.Marker({
+        position: {lat: jsonObject.latitude, lng: jsonObject.longitude},
+        map: map
+      });
     });
     var pointArray = new google.maps.MVCArray(jsonArray);
     heatmap.setData(pointArray);

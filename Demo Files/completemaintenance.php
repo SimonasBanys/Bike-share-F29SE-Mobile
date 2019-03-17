@@ -1,23 +1,18 @@
 <?php
-DEFINE ('DB_HOST', 'mysql-server-1.macs.hw.ac.uk');
-DEFINE ('DB_USER', 'rh49');
-DEFINE ('DB_PASSWORD', 'e8FpS0qItsvAFLz4');
-DEFINE ('DB_NAME', 'rh49');
+session_start();
+include 'config.php';
 
-$dbc = @mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
-OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
+if($_SESSION['role'] != "dev" && $_SESSION['role'] != "manager" && $_SESSION['role'] != "maintenance"){
+  header("Location: http://www2.macs.hw.ac.uk/~rh49/basicsignin.php");
+}
+$staffID = $_SESSION['staffID'];
 ?>
 <html lang="en">
 <head>
     <title>All Scheduled Maintenance</title>
 </head>
 <body>
-<form method ="post" action="demo.html">
-    <h1>
-        Press to hide database
-    </h1>
-    <button type="submit">Hide</button>
-</form>
+<button onclick="history.go(-1);">Back</button>
 
 <h1>Scheduled Maintenance:</h1>
 <table style="border: 1px solid black; width: 100%;">
@@ -57,7 +52,7 @@ OR die('Could not connect to MySQL Database: ' . mysqli_connect_error());
 <form action="actionmaintenance.php" method="post">
 <h1>Complete Maintenance:</h1><br>
 Maintenance ID: <input type="number" name="maintenanceID"><br>
-Your Staff ID: <input type="number" name="staffID"><br>
+Your Staff ID: <input type="number" name="staffID" value="<?php echo htmlspecialchars($staffID); ?>" readonly><br>
 Date of Completion: <input type="date" name="dateOfCompletion"><br>
 Length of Repair: <input type="time" name="lengthOfRepair"><br>
 Notes: <input type="text" name="notes"><br>
