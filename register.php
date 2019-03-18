@@ -58,6 +58,8 @@ $input = json_decode($inputJSON, TRUE); //convert JSON into array
             $response["message"] = "User created";
             $stmt->close();
         }
+
+
     }
     else{
         $response["status"] = 1;

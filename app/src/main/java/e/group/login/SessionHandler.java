@@ -14,8 +14,6 @@ public class SessionHandler {
     private static final String PREF_NAME = "UserSession";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_EXPIRES = "expires";
-    private static final String KEY_FIRST_NAME = "first_name";
-    private static final String KEY_LAST_NAME = "last_name";
     private static final String KEY_EMPTY = "";
     private Context mContext;
     private SharedPreferences.Editor mEditor;
@@ -31,11 +29,9 @@ public class SessionHandler {
      * Logs in the user by saving user details and setting session
      *
      * @param username
-     * @param firstName
      */
-    public void loginUser(String username, String firstName) {
+    public void loginUser(String username) {
         mEditor.putString(KEY_USERNAME, username);
-        mEditor.putString(KEY_FIRST_NAME, firstName);
         Date date = new Date();
 
         //Set user session for next 7 days

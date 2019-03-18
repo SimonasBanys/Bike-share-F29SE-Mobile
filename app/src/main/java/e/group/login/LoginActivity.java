@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private String username;
     private String password;
     private ProgressDialog pDialog;
-    private String login_url = "http://www2.macs.hw.ac.uk/~sb93/login.php";
+    private static final String login_url = "http://www2.macs.hw.ac.uk/~sb93/login.php";
     private SessionHandler session;
 
     @Override
@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                             //Check if user got logged in successfully
 
                             if (response.getInt(KEY_STATUS) == 0) {
-                                session.loginUser(username,response.getString(KEY_FIRST_NAME));
+                                session.loginUser(username);
 
                             }else{
                                 Toast.makeText(getApplicationContext(),
